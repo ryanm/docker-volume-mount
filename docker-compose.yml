@@ -1,0 +1,19 @@
+# docker_project/docker-compose.yml
+version: '3.8'
+
+services:
+  container1:
+    build: ./container1
+    command: tail -f /dev/null
+    volumes:
+      - shared_volume:/shared_volume
+
+  container2:
+    build: ./container2
+    command: bash -c "echo 'Hello from container2' > /shared_volume/test_file.txt && tail -f /dev/null"
+    volumes:
+      - shared_volume:/shared_volume
+
+volumes:
+  shared_volume:
+
